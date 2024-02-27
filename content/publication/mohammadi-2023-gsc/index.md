@@ -20,5 +20,10 @@ image:
 
 featured: true
 
-tags: []
+share: false
+
+tags:
+    - microservices
+    - orchestration
+    - generalization
 ---

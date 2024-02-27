@@ -117,5 +117,5 @@ social:
 highlight_name: true
 ---
 
-I am currently a master's student at University of Tehran. I like building practical, reliable, large-scale systems for telecom, networking, and computing industry.
+I am currently a master's student at University of Tehran. I like building practical, reliable, large-scale systems for telecom, networking, and computing industries.
 {style="text-align: justify;"}
