@@ -216,7 +216,7 @@ Now, let's talk about **heartbeats**. These are simple RPC to just check whether
 # Final notes
 
 - Do not block on any interface to upper-level services, such as the state machine, that are using Raft for distributed consensus. This is important because you don't know how these upper-level services might use this interface.
-- Do not forget about careful logging. Otherwise, debugging such complex distributed systems would be almost impossible. More about logging in the [Lab's page](http://nil.csail.mit.edu/6.5840/2023/labs/lab-raft.html) [my solutions repository](https://github.com/farzad1132/mit-6.5840-lab-implementation).
+- Do not forget about careful logging. Otherwise, debugging such complex distributed systems would be almost impossible. More about logging in the [Lab's page](http://nil.csail.mit.edu/6.5840/2023/labs/lab-raft.html) and [my solutions repository](https://github.com/farzad1132/mit-6.5840-lab-implementation).
 
 
 If you had any questions or notes regarding the implementation of this post, please don't hesitate to let me know via email or any other contact point.
