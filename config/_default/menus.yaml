@@ -9,10 +9,10 @@ main:
     weight: 10
   - name: Experiences
     url: '#experiences'
-    weight: 30
+    weight: 40
   - name: Posts
     url: '#posts'
-    weight: 40
+    weight: 20
   - name: Projects
     url: '#projects'
     weight: 60
@@ -21,7 +21,7 @@ main:
   #  weight: 40
   - name: Featured Publications
     url: '#featured'
-    weight: 20
+    weight: 30
   - name: Recent Publications
     url: '#recent-publication'
     weight: 50
