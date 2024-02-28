@@ -213,6 +213,127 @@ You might ask why am I not sending `AppendEntries` Response to facilitate commit
 
 Now, let's talk about **heartbeats**. These are simple RPC to just check whether a specific entity is alive and responsive or not. Usually, they are used in conjunction with timers to make sure something gets done in a specific amount of time. For instance, in our watchdog implementation, one of the `select` branches is waiting on a timer. When this timer goes off, we reset it and send a heartbeat.
 
+## Applying entries to the state machine
+Any instance, regardless of its state, has to apply committed entries to its state machine. In this lab, this is done by sending a message (containing the actual command and term of the entry) through `applyCh` provided by the upper layer service. Before going further, you should keep in mind that _reading from and writing to a channel is potentially blocking_. Also, **committed entries should be applied in order**. In this situation, let's consider the part of the code that has to apply new entries (it can be any number of entries) because `commitIndex` has been updated as a result of receiving an `AppendEntries` RPC. This code can look like this:
+
+```go
+if rf.commitIndex > rf.lastApplied {
+  rf.mu.Lock()
+
+  // ... Checking some initial conditions
+  updateCount := rf.commitIndex - rf.lastApplied
+  for i := 0; i < updateCount; i++ {
+    // ... more checking
+    rf.lastApplied += 1
+    
+    entry, ok := rf.log.Get(rf.lastApplied)
+    
+    if ok {
+      // ... applying the entry using applyCh
+    }
+    
+  }
+  debug.Debug(debug.DCommit, rf.me, "Updated lastApplied: %v --> %v.",
+    oldLastApplied, rf.lastApplied)
+  rf.mu.Unlock()
+}
+```
+
+Let me mention some points about this piece of code:
+- This section of the code certainly is a **critical section** because other goroutines handling `AppendEntries` responses might want to update `commitIndex` and `lastApplied` (notice `Lock` and `Unlock` operations).
+- As I said before, sending through a channel (in this case `applyCh` can potentially block because the user of this channel might not read from it for unknown amount of time).
+- There might be more than one entries to be applied and **we cannot unlock between iteration of the loop because interleaving of goroutines caused by Go's runtime scheduler can disrupt the order that we are applying the entries**.
+
+So, what we can do in this scenario? Let us go through some possible designs for solving this challenge.
+
+### Option 1
+
+**Idea**: Store entries that need to be applied in a data structure that preserves their order (like a list) in the critical section. Then apply them one by one after ending the critical section.
+
+**Evaluation**: Suppose we have two goroutines handling `AppendEntries` responses (goroutine `#1` and `#2`). `goroutine #1` stores entries 1 to 3. Then, it closes the critical section. However, before it can apply these three entries to the state machine, `goroutine #2` comes around and stores entries 4 and 5 in a list and applies them (remember that our calculations in the critical section is protected against data races, so no other goroutine can get entries 1, 2, and 3 after `#1`). Consequently, the ordering condition is not met and the design is wrong.
+
+
+### Option 2
+
+**Idea**: Again suppose the situation in Option 1, but in this design, each goroutine decides to run a separate goroutine that applies entries (that goroutine doesn't require the lock). They start this child goroutine inside the critical section.
+
+**Evaluation**: Since child goroutines does not require any locking, the scheduler can interleave them somehow that the order gets disrupted exactly like Option 1.
+
+{{< figure src="raft-gif.gif" >}}
+
+### Option 3
+
+After failing for two times, let's think and find the main challenge in our designs. Because sending on the channel might block, in our previous designs, we had to do this operation out of the critical section that caused out-of-order applied entries.
+
+We need to apply messages somehow in the critical section without blocking!
+
+{{< figure src="confuse-raft.jpg" >}}
+
+This might seem a big problem at the first glance, but actually it's an old and well thought problem in computer science and specially among people who are working on system programming. This challenge is known as **asynchronous producer and consumer**. In our case, we have to deal with the critical section too! (to keep it from getting too boring!!)
+
+{{< figure src="chal-3.jpg" >}}
+
+Let me elaborate on our desired situation. First, we need a goroutine waiting on a channel to receive entries to be applied and storing these entries in an internal queue. Second, a goroutine applying entries in the internal queue.
+
+```go
+entries := make([]*LogEntry, 0)
+var mu sync.Mutex
+ch := make(chan int)
+
+// ## Goroutine 1 ##
+
+/* Goroutine responsible for receiving new entries to apply from
+AppendEntries handler and queueing them */
+go func() {
+  for !rf.killed() {
+    // internalApplyCh is used by RPC response handler to send to-be-applied
+    // entries
+    e := <-rf.internalApplyCh
+    mu.Lock()
+    entries = append(entries, e)
+    mu.Unlock()
+    select {
+    case ch <- 0:
+    default:    // Note that select won't block because of this
+    }
+
+  }
+}()
+
+// ## Goroutine 2 ##
+
+// Code responsible for reading from the internal queue of entries and applying them
+for {
+  if rf.killed() {
+    return
+  }
+
+  // Checking the internal queue without busy waiting
+  mu.Lock()
+  for len(entries) < 1 {
+    mu.Unlock()
+    <-ch
+    mu.Lock()
+  }
+  e := entries[0]
+  entries = entries[1:]
+  mu.Unlock()
+  rf.applyCh <- ApplyMsg{
+    CommandValid: true,
+    Command:      e.Command,
+    CommandIndex: e.Index,
+  }
+  debug.Debug(debug.DCommit, rf.me, "Applied index:%v.", e.Index)
+}
+```
+
+Some interesting points:
+- Goroutine 1 does not block at all (The internal lock is only acquired for short amount of times in both goroutines). Also don't confuse this internal lock with the global lock protecting critical sections.
+- **Goroutine 2 waits for new entries in the internal queue but it does not busy wait**. Pro tip: the pattern for checking the length of the queue without busy waiting greatly resembles condition variables, but in this case, I am using channel for signalling!
+- Goroutine number 2 might block when applying an entry, but this is absolutely fine since our main goal was to prevent Raft from blocking and preserving the order when applying entries.
+
+Now the critical section in `AppendEntries` response handler can send a notification through `rf.internalApplyCh` without worrying about blocking or compromising the order of applied log entries.
+
 # Final notes
 
 - Do not block on any interface to upper-level services, such as the state machine, that are using Raft for distributed consensus. This is important because you don't know how these upper-level services might use this interface.
