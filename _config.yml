@@ -23,7 +23,7 @@ repository               : "farzad1132/farzad1132.github.io"
 #               Additional customization can be done by editing /_includes/author-profile.html
 author:
   # Biographic information
-  avatar           : "profile.png"
+  avatar           : "profile.jpeg"
   name             : "Farzad Mohammadi"
   pronouns         : # example: "she/her"  
   bio              : "CS PhD @ Imperial"
@@ -357,17 +357,3 @@ compress_html:
   clippings: all
   ignore:
     envs: development
-
-callouts:
-  highlight:
-    color: yellow
-    opacity: 0.5
-  important:
-    title: Important
-    color: green
-  note:
-    title: Note
-    color: blue
-  warning:
-    title: Warning
-    color: red
