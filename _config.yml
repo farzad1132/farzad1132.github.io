@@ -8,7 +8,7 @@
 
 # Basic Site Settings
 locale                   : "en-US"
-site_theme               : "default" # Currently available options are "default", "air"
+site_theme               : "air" # Currently available options are "default", "air"
 title                    : "Farzad's website"
 title_separator          : "-"
 name                     : &name "Farzad Mohammadi"
@@ -23,61 +23,62 @@ repository               : "farzad1132/farzad1132.github.io"
 #               Additional customization can be done by editing /_includes/author-profile.html
 author:
   # Biographic information
-  avatar           : "profile.jpeg"
-  name             : "Your Sidebar Name"
+  avatar           : "profile.png"
+  name             : "Farzad Mohammadi"
   pronouns         : # example: "she/her"  
-  bio              : "Short biography for the left-hand sidebar"
-  location         : "Earth"
-  employer         : "Red Brick University"
+  bio              : "CS PhD @ Imperial"
+  location         : "London, UK"
+  employer         : "Imperial College London"
   uri              : # URL
-  email            : "none@example.org" 
+  email            : "farzad.mohammadi87@gmail.com"
+# cv               : "files/cv.pdf" # Link to a PDF of your CV or Résumé 
 
   # Academic websites
   academia         : # URL
   arxiv            : # URL - Update with the correct link to your profile
-  googlescholar    : "https://scholar.google.com/citations?user=PS_CX0AAAAAJ"
-  inspire-hep      : # URL
-  impactstory      : # URL
-  orcid            : "http://orcid.org/yourorcidurl"
-  semantic         : # URL
-  pubmed           : "https://www.ncbi.nlm.nih.gov/pubmed/?term=john+snow"
-  researchgate     : # URL
-  scopus           : # URL
+  googlescholar    : "https://scholar.google.com/citations?user=KIJ5tEMAAAAJ&hl=en"
+#  inspire-hep      : # URL
+#  impactstory      : # URL
+#  orcid            : "http://orcid.org/yourorcidurl"
+#  semantic         : # URL
+#  pubmed           : "https://www.ncbi.nlm.nih.gov/pubmed/?term=john+snow"
+#  researchgate     : # URL
+#  scopus           : # URL
 
   # Repositories and software development
-  bitbucket        : # Username - Update with your username on the site
-  codepen          : # Username
-  dribbble         : # Username
-  github           : "academicpages"
-  kaggle           : # Username  
-  stackoverflow    : # User number or user number and name (i.e., use "1" or "1/jeff-atwood")    
+#  bitbucket        : # Username - Update with your username on the site
+#  codepen          : # Username
+#  dribbble         : # Username
+  github           : "https://github.com/farzad1132"
+#  kaggle           : # Username  
+#  stackoverflow    : # User number or user number and name (i.e., use "1" or "1/jeff-atwood")    
 
   # Social media
-  artstation       : # Username
-  bluesky          : "bsky.app" # Replace this with you Bluesky username
-  facebook         : # Username
-  flickr           : # Username
-  foursquare       : # Username
-  goodreads        : # Username
-  google_plus      : # Username
-  keybase          : # Username
-  instagram        : # Username
-  lastfm           : # Username
-  linkedin         : # Username
-  mastodon         : # URL
-  medium           : # URL
-  pinterest        : # Username
-  soundcloud       : # Username
-  steam            : # Username
-  telegram         : # URL
-  tumblr           : # Username
-  twitter          : # Username for X / Twitter
-  vine             : # Username
-  weibo            : # Username
-  wikipedia        : # Username
-  xing             : # Username
-  youtube          : # Username
-  zhihu            : # Username
+#  artstation       : # Username
+#  bluesky          : "bsky.app" # Replace this with you Bluesky username
+#  facebook         : # Username
+#  flickr           : # Username
+#  foursquare       : # Username
+#  goodreads        : # Username
+#  google_plus      : # Username
+#  keybase          : # Username
+#  instagram        : # Username
+#  lastfm           : # Username
+  linkedin         : "https://www.linkedin.com/in/farzad-mohammadi/"
+#  mastodon         : # URL
+#  medium           : # URL
+#  pinterest        : # Username
+#  soundcloud       : # Username
+#  steam            : # Username
+#  telegram         : # URL
+#  tumblr           : # Username
+#  twitter          : # Username for X / Twitter
+#  vine             : # Username
+#  weibo            : # Username
+#  wikipedia        : # Username
+#  xing             : # Username
+#  youtube          : # Username
+#  zhihu            : # Username
 
 # Publication Category - The following the list of publication categories and their headings
 publication_category:
@@ -356,3 +357,17 @@ compress_html:
   clippings: all
   ignore:
     envs: development
+
+callouts:
+  highlight:
+    color: yellow
+    opacity: 0.5
+  important:
+    title: Important
+    color: green
+  note:
+    title: Note
+    color: blue
+  warning:
+    title: Warning
+    color: red
