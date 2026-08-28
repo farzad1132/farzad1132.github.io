@@ -10,7 +10,7 @@ redirect_from:
 **I'm looking for internships!**
 {: .notice--info .homepage-callout}
 
-Hello! I'm Farzad, a second-year PhD student at [Imperial College London](https://www.imperial.ac.uk/) advised by [Marios Kogias](https://marioskogias.github.io/). I work on cloud infrastructure (overload control, auto-scaling, load balancing, scheduling, etc.) and microservice performance resilience.
+Hello! I'm Farzad, a second-year PhD student at [Imperial College London](https://www.imperial.ac.uk/) advised by [Marios Kogias](https://marioskogias.github.io/). I work on the performance of cloud infrastructure (overload control, auto-scaling, load balancing, scheduling, etc.) for microservice-based application.
 
 *Marios and I are always looking for undergraduate research interns (we have lots of interesting projects). Get in touch if you are interested.*
 {: .notice--info .homepage-callout .homepage-callout--blue}
