@@ -1,0 +1,57 @@
+/* ==========================================================================
+   Folio — dark
+   Warm charcoal, ivory type, and copper highlights.
+   ========================================================================== */
+
+$primary-color              : #e0a078;
+$dark-primary-color         : mix(#000, $primary-color, 25%);
+$darker-primary-color       : mix(#000, $primary-color, 45%);
+$light-primary-color        : mix(#fff, $primary-color, 25%);
+
+$background                 : #141210;
+$background-light           : #1f1c19;
+$background-lighter         : #2a2622;
+$text                       : #ece7df;
+$link                       : #e0a078;
+$link-dark                  : #f0c4a8;
+$link-light                 : #c4845c;
+$footer                     : #0c0b0a;
+
+$danger-color               : #f97066;
+$info-color                 : #c4a484;
+$notice-color               : #9a938a;
+$success-color              : #a3b86c;
+$warning-color              : #e0a078;
+
+$border-radius              : 8px;
+$box-shadow                 : 0 1px 2px rgba(0, 0, 0, 0.35);
+$global-transition          : all 0.2s ease;
+$masthead-height            : 64px;
+$navicon-width              : 22px;
+$navicon-height             : 2px;
+$sidebar-link-max-width     : 250px;
+$sidebar-screen-min-width   : 1024px;
+
+html[data-theme="dark"] {
+    --global-base-color                 : #{$primary-color};
+    --global-bg-color                   : #{$background};
+    --global-footer-bg-color            : #{$footer};
+    --global-footer-text-color          : #a39b91;
+    --global-border-color               : #2e2a26;
+    --global-dark-border-color          : #2e2a26;
+    --global-code-background-color      : #{$background-light};
+    --global-code-text-color            : #d4c4b0;
+    --global-fig-caption-color          : #a39b91;
+    --global-link-color                 : #{$link};
+    --global-link-color-hover           : #{$link-dark};
+    --global-link-color-visited         : #{$link-light};
+    --global-masthead-link-color        : #{$text};
+    --global-masthead-link-color-hover  : #{$link};
+    --global-text-color                 : #{$text};
+    --global-text-color-light           : #a39b91;
+    --global-thead-color                : #{$background-lighter};
+    --global-accent-color               : #{$primary-color};
+    --global-surface-color              : #{$background-light};
+    --global-heading-color              : #{$text};
+    --global-glow-color                 : rgba(224, 160, 120, 0.08);
+}

@@ -1,6 +1,6 @@
 ---
 title: Roshanfer
-excerpt: "Avoiding SLO violations with proactive overload contorl in microservices"
+excerpt: "Avoiding SLO violations with proactive overload control in microservices"
 image: /images/projects/roshanfer.png
 image_alt: Roshanfer
 github: https://github.com/roshanfer-project
