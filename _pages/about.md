@@ -7,6 +7,12 @@ redirect_from:
   - /about.html
 ---
 
-Hello! I'm Farzad, a second year PhD student at [Imperial College London](https://www.imperial.ac.uk/) advised by [Marios Kogias](https://marioskogias.github.io/). Currently I'm working on cool and advanced datacenter networking, scheduling, load balancing, and resource management technologies.
+Hello! I'm Farzad, a second year PhD student at [Imperial College London](https://www.imperial.ac.uk/) advised by [Marios Kogias](https://marioskogias.github.io/). I work on cloud infrastrucutre (overload control, auto-scaling, load balancing, scheduling, etc.) and microservices performance resiliency.
 
-Make sure to also check out my [blog posts](https://farzad1132.github.io/year-archive/).
+## News
+
+{% include news.html %}
+
+## Projects
+
+{% include project-summary.html %}

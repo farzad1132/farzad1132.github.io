@@ -1,0 +1,14 @@
+{% include base_path %}
+
+{% if site.projects.size > 0 %}
+  <ul class="project-summary-list">
+    {% for project in site.projects %}
+      <li class="project-summary">
+        <a class="project-summary-title" href="{{ base_path }}{{ project.url }}">{{ project.title }}</a>
+        {% if project.excerpt %}
+          <div class="project-summary-excerpt">{{ project.excerpt | markdownify }}</div>
+        {% endif %}
+      </li>
+    {% endfor %}
+  </ul>
+{% endif %}

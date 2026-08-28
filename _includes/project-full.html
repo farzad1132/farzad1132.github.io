@@ -1,0 +1,43 @@
+{% include base_path %}
+
+<article class="project">
+  {% if include.show_title %}
+    <h2 class="project-title">
+      <a href="{{ base_path }}{{ include.project.url }}">{{ include.project.title }}</a>
+    </h2>
+  {% endif %}
+
+  {% if include.project.image %}
+    <img
+      class="project-image"
+      src="{% if include.project.image contains '://' %}{{ include.project.image }}{% else %}{{ include.project.image | prepend: base_path }}{% endif %}"
+      alt="{{ include.project.image_alt | default: include.project.title }}"
+      onerror="this.style.display='none'"
+    >
+  {% endif %}
+
+  <div class="project-description">
+    {{ include.project.content }}
+  </div>
+
+  {% if include.project.pdf or include.project.github %}
+    <ul class="project-links">
+      {% if include.project.pdf %}
+        <li>
+          <a href="{% if include.project.pdf contains '://' %}{{ include.project.pdf }}{% else %}{{ include.project.pdf | prepend: base_path }}{% endif %}">
+            <i class="fa-solid fa-file-pdf" aria-hidden="true"></i>
+            <span>Paper</span>
+          </a>
+        </li>
+      {% endif %}
+      {% if include.project.github %}
+        <li>
+          <a href="{{ include.project.github }}">
+            <i class="fa-brands fa-github" aria-hidden="true"></i>
+            <span>Code</span>
+          </a>
+        </li>
+      {% endif %}
+    </ul>
+  {% endif %}
+</article>

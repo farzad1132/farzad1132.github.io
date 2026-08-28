@@ -1,0 +1,46 @@
+/* ==========================================================================
+   HOMEPAGE NEWS LIST
+   ========================================================================== */
+
+.news-list {
+  list-style: none;
+  margin: 0 0 1.5em;
+  padding: 0;
+}
+
+.news-item {
+  display: block;
+  margin: 0 0 1em;
+}
+
+.news-date {
+  display: block;
+  margin-bottom: 0.15em;
+  color: var(--global-text-color-light);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.news-content {
+  p {
+    margin: 0;
+  }
+}
+
+@include breakpoint($small) {
+  .news-item {
+    display: flex;
+    gap: 1.25em;
+    align-items: baseline;
+    margin-bottom: 0.6em;
+  }
+
+  .news-date {
+    flex: 0 0 5.5em;
+    margin-bottom: 0;
+  }
+
+  .news-content {
+    flex: 1 1 auto;
+  }
+}

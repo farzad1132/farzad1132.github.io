@@ -1,0 +1,6 @@
+# Homepage news items. Newest items are shown first.
+# Add a new entry at the top or anywhere; they are sorted by date.
+# `content` is Markdown, so links work: [text](https://example.com)
+
+- date: 2026-08-01
+  content: Roshanfer got accepted in EuroSys'27!
