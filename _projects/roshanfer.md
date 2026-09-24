@@ -4,7 +4,7 @@ excerpt: "Avoiding SLO violations with proactive overload control in microservic
 image: /images/projects/roshanfer.png
 image_alt: Roshanfer
 github: https://github.com/roshanfer-project
-# pdf: /files/roshanfer.pdf
+pdf: /files/roshanfer-eurosys27.pdf
 ---
 
 ***Accepted to EuroSys'27***
